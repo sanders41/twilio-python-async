@@ -18,6 +18,9 @@ classifiers=[
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
+packages = [
+  { include = "twilio_async" },
+]
 include = ["twilio_async/py.typed"]
 
 [tool.poetry.dependencies]
