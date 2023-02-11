@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 from types import TracebackType
 from typing import Type
-from urllib.parse import urlencode
 
 from httpx import AsyncClient as HttpxAsyncClient
 
@@ -108,7 +107,7 @@ class AsyncClient:
 
         response = await self._http_client.post(
             url="Messages.json",
-            data=urlencode(payload),  # type: ignore
+            data=payload,
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
 
