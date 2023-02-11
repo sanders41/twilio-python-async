@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import asyncio
 import os
 from types import TracebackType
 from typing import Type
 
 from httpx import AsyncClient as HttpxAsyncClient
 
-from twilio_async.models.message import Message
+from twilio_async.models.message import MessageResponse, MessageSend
 
 
 class AsyncClient:
@@ -70,7 +71,7 @@ class AsyncClient:
         *,
         from_: str | None = None,
         messaging_service_sid: str | None = None,
-    ) -> Message:
+    ) -> MessageResponse:
         """Sends a message.
 
         Args:
@@ -83,10 +84,12 @@ class AsyncClient:
 
         Examples:
             >>> from twilio_async import AsyncClient
+            >>>
+            >>>
             >>> async with AsyncClient() as client:
             >>>     response = await client.message_create(
             >>>         "My message",
-            >>>         "+15018675301",
+            >>>         "+15018675309",
             >>>     )
         """
         sid = messaging_service_sid or os.getenv("TWILIO_MESSAGING_SERVICE_SID", None)
@@ -113,4 +116,43 @@ class AsyncClient:
 
         response.raise_for_status()
 
-        return Message(**response.json())
+        return MessageResponse(**response.json())
+
+    async def batch_message_create(
+        self,
+        message_info: list[MessageSend],
+    ) -> list[MessageResponse]:
+        """Sends a message.
+
+        Args:
+            message_info: A list of messages to send.
+
+        Returns:
+            A list of message response information.
+
+        Examples:
+            >>> from twilio_async import AsyncClient
+            >>> from twilio_async.models.message import MessageSend
+            >>>
+            >>>
+            >>> message_info = [
+            >>>     MessageSend(body="Message 1", to="+15018675309),
+            >>>     MessageSend(body="Message 2", to="+15019035768"),
+            >>> ]
+            >>> async with AsyncClient() as client:
+            >>>     response = await client.message_create(message_info)
+        """
+        tasks = []
+        for message in message_info:
+            tasks.append(
+                asyncio.create_task(
+                    self.message_create(
+                        body=message.body,
+                        to=message.to,
+                        from_=message.from_,
+                        messaging_service_sid=message.messaging_service_sid,
+                    )
+                )
+            )
+
+        return await asyncio.gather(*tasks)

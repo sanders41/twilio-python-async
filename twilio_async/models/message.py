@@ -8,7 +8,7 @@ class SubresouceUris(BaseModel):
     media: str
 
 
-class Message(BaseModel):
+class MessageResponse(BaseModel):
     body: str
     num_segments: int
     direction: str
@@ -44,6 +44,13 @@ class Message(BaseModel):
             return None
 
         return _to_datetime(v)
+
+
+class MessageSend(BaseModel):
+    body: str
+    to: str
+    from_: Union[str, None] = None
+    messaging_service_sid: Union[str, None] = None
 
 
 def _to_datetime(value: str) -> datetime:

@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from twilio_async.models.message import Message, SubresouceUris
+from twilio_async.models.message import MessageResponse, SubresouceUris
 
 
 @pytest.mark.parametrize(
@@ -15,7 +15,7 @@ from twilio_async.models.message import Message, SubresouceUris
 def test_date_parse(date_sent, expected_date_sent):
     str_date = "Sat, 11 Feb 2023 02:25:05 +0000"
     expected_date = datetime(2023, 2, 11, 2, 25, 5, tzinfo=timezone.utc)
-    result = Message(
+    result = MessageResponse(
         body="test",
         num_segments=0,
         direction="test",
