@@ -36,6 +36,16 @@ async with AsyncClient() as client:
     await client.message_create("My message", "+12068675309")
 ```
 
+### Retrieve message logs
+
+```py
+from twilio_async import AsyncClient
+
+
+async with AsyncClient() as client:
+    response = await client.get_message_logs()
+```
+
 ## Contributing
 
 Contributions to this project are welcome. If you are interesting in contributing please see our [contributing guide](CONTRIBUTING.md)
