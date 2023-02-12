@@ -7,7 +7,7 @@ from typing import Type
 
 from httpx import AsyncClient as HttpxAsyncClient
 
-from twilio_async.models.message import MessageResponse, MessageSend
+from twilio_async.models.message import MessageLogs, MessageResponse, MessageSend
 
 
 class AsyncClient:
@@ -64,6 +64,29 @@ class AsyncClient:
         """
         await self._http_client.aclose()
 
+    async def get_message_logs(self, page_size: int = 100) -> MessageLogs:
+        """Retrieve message logs.
+
+        Args:
+            page_size: The number of log records to retrieve per page. 1000 is the maximum allowed
+                by Twilio. When sending a number greater than 1000 the API will cap the request at
+                1000.
+
+        Returns:
+            The log information
+
+        Examples:
+            >>> from twilio_async import AsyncClient
+            >>>
+            >>>
+            >>> async with AsyncClient() as client:
+            >>>     response = await client.get_message_logs()
+        """
+        response = await self._http_client.get(f"Messages.json?PageSize={page_size}")
+        response.raise_for_status
+
+        return MessageLogs(**response.json())
+
     async def message_create(
         self,
         body: str,
@@ -113,7 +136,6 @@ class AsyncClient:
             data=payload,
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
-
         response.raise_for_status()
 
         return MessageResponse(**response.json())

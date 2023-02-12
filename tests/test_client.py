@@ -26,6 +26,21 @@ async def test_client():
         assert client.token == "token"
 
 
+async def test_get_message_logs(mock_message_log_data, monkeypatch):
+    async def mock_return(*args, **kwargs):
+        return httpx.Response(
+            status_code=200,
+            json=mock_message_log_data,
+            request=httpx.Request(url=str(args[0]._base_url), method="get"),
+        )
+
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_return)
+    async with AsyncClient("account_sid", "token") as client:
+        response = await client.get_message_logs()
+
+    assert len(response.messages) == len(mock_message_log_data["messages"])
+
+
 @patch.dict(
     os.environ,
     {"TWILIO_ACCOUNT_SID": "account_sid", "TWILIO_AUTH_TOKEN": "token"},

@@ -1,5 +1,5 @@
-from datetime import datetime, timezone
-from typing import Union
+from datetime import datetime
+from typing import List, Union
 
 from pydantic import BaseModel, Field, validator
 
@@ -44,6 +44,18 @@ class MessageResponse(BaseModel):
             return None
 
         return _to_datetime(v)
+
+
+class MessageLogs(BaseModel):
+    first_page_uri: str
+    end: int
+    previous_page_uri: Union[str, None] = None
+    messages: List[MessageResponse]
+    uri: str
+    page_size: int
+    start: int
+    next_page_uri: Union[str, None] = None
+    page: int
 
 
 class MessageSend(BaseModel):
