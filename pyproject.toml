@@ -10,6 +10,7 @@ homepage = "https://github.com/sanders41/twilio-python-async"
 documentation = "https://github.com/sanders41/twilio-python-async"
 keywords = ["twilio", "async", "python", "sms", "messaging"]
 classifiers=[
+  "Intended Audience :: Developers",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
