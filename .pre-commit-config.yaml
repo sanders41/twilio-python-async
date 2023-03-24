@@ -23,7 +23,8 @@ repos:
     rev: v1.1.1
     hooks:
     - id: mypy
+      additional_dependencies: [pydantic]
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.257
+    rev: v0.0.259
     hooks:
     - id: ruff
