@@ -72,22 +72,18 @@ git checkout main
 git pull upstream main --ff-only
 ```
 
-### Code Standards and tests (isort, ruff, black, mypy, pytest, and pre-commit)
+### Code Standards and tests (ruff, black, mypy, pytest, and pre-commit)
 
-twilio-python-async uses [isort](https://pycqa.github.io/isort/),
-[ruff](https://github.com/charliermarsh/ruff), [Black](https://github.com/psf/black), and [mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistant code formmating.
+twilio-python-async uses [ruff](https://github.com/charliermarsh/ruff), [Black](https://github.com/psf/black), and [mypy](https://mypy.readthedocs.io/en/stable/) to ensure consistant code formmating.
 
 You can run linting on your code at any time with:
 
 ```sh
-# Run isort
-poetry run isort twilio_async tests
+# Run ruff
+poetry run ruff twilio_async tests
 
 # Run black
 poetry run black twilio_async tests
-
-# Run ruff
-poetry run ruff twilio_async tests
 
 # Run mypy
 poetry run mypy twilio_async
