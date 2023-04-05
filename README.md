@@ -13,7 +13,7 @@ An asynchronous [Twilio](https://www.twilio.com/) client
 Using a virtual environment is recommended for installing this package. Once the virtual environment is created and activated install the package with:
 
 ```sh
-pip install meilisearch-python-async
+pip install twilio-python-async
 ```
 
 ## Useage
