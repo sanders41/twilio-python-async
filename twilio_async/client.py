@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import os
 from types import TracebackType
-from typing import Type
 
 from httpx import AsyncClient as HttpxAsyncClient
 
@@ -51,8 +50,8 @@ class AsyncClient:
 
     async def __aexit__(
         self,
-        et: Type[BaseException] | None,
-        ev: Type[BaseException] | None,
+        et: type[BaseException] | None,
+        ev: type[BaseException] | None,
         traceback: TracebackType | None,
     ) -> None:
         await self.aclose()
