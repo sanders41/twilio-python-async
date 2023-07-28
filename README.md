@@ -48,4 +48,4 @@ async with AsyncClient() as client:
 
 ## Contributing
 
-Contributions to this project are welcome. If you are interesting in contributing please see our [contributing guide](CONTRIBUTING.md)
+Contributions to this project are welcome. If you are interested in contributing please see our [contributing guide](CONTRIBUTING.md)
