@@ -8,6 +8,9 @@
 
 An asynchronous [Twilio](https://www.twilio.com/) client
 
+⚠️ The official [Twilio Python Client](https://github.com/twilio/twilio-python) now natively supports
+asyncio so this project had been depreciated.
+
 ## Installation
 
 Using a virtual environment is recommended for installing this package. Once the virtual environment is created and activated install the package with:
